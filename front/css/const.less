@@ -1,0 +1,76 @@
+// main: style.less
+
+html {
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    font-size: 1rem;
+    font-style: normal;
+    
+    font-weight: 400;
+    
+    margin: 0;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+    background-color: #A8A6A1;
+}
+
+*,
+*:before,
+*:after {
+    //border: 1px solid black;
+
+    box-sizing: border-box;
+    -webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+h1, h2, h3, h4, h5, h6, a, li, p {
+    width: fit-content;
+    margin: 0;
+	padding: 0;
+	border: 0;
+	font: inherit;
+	vertical-align: baseline;
+    color: inherit;
+    text-decoration: none;
+}
+
+li, ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    
+    transition: all .1s ease-in-out;
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+main {
+    width: 100%;
+}
+
+// Custom
+
+.container {
+    width: 100%;
+    max-width: 1333px;
+    padding: 0 1rem;
+    margin: 0 auto;
+}
+
+img {
+    pointer-events: none;
+    object-fit: cover;
+}
