@@ -1,0 +1,70 @@
+// main: style.less 
+
+.good {
+    width: 100%;
+}
+
+.good__inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // gap: 5rem;
+    gap: 9%;
+
+    margin: 0 auto;
+    max-width: 1100px;
+}
+
+.good_gallery {
+    width: 450px;
+    height: 500px;
+
+    &::after {
+        content: '';
+        display: block;
+        position: relative;
+        top: 10px;
+
+        width: 70px;
+        height: 70px;
+        background-color: aliceblue;
+    }
+}
+
+.good_gallery img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    background-color: aliceblue;
+}
+
+.good_info {
+    max-width: 550px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4.25rem;
+}
+
+.good_description {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+}
+
+.good_description h2{
+    max-width: 350px;
+    font-size: 1.2rem;
+}
+
+.good_description p{
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+.good_coop {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+}

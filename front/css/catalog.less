@@ -1,7 +1,7 @@
 // main: style.less
 
 .catalog {
-    margin-bottom: 220px;
+    width: 100%;
 }
 
 .catalog__inner {
@@ -31,13 +31,12 @@
 
     object-fit: contain;
     border-radius: 15px;
-
-    background-color: aliceblue;
 }
 
 .card_info {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 
     padding: .9rem 1rem;
 }
@@ -50,6 +49,8 @@
     font-size: 1rem;
     text-wrap: nowrap;
     padding-top: 8px;
+    font-weight: 400;
+
     &::after {
         display: inline-block;
         content: 'р';

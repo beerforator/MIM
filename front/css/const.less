@@ -13,9 +13,10 @@ body {
     font-weight: 400;
     
     margin: 0;
-    max-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    gap: 85px;
     
     background-color: #A8A6A1;
 }
@@ -50,15 +51,31 @@ li, ul {
 
 a {
     text-decoration: none;
-    
     transition: all .1s ease-in-out;
+
+    &::after {
+        content: '';
+        display: block;
+        position: relative;
+
+        margin: 0 auto;
+
+        height: 2px;
+        width: 0;
+        background-color: #FFFFFF;
+    }
+
     &:hover {
-        transform: scale(1.2);
+        transform: scale(1.05);
+        // &::after {
+        //     width: 100%;
+        // }
     }
 }
 
 main {
     width: 100%;
+    margin-bottom: 100px;
 }
 
 // Custom
@@ -85,4 +102,47 @@ p {
     font-family: inherit;
     font-weight: 400;
     font-size: inherit;
+}
+
+// Buttons
+
+.button {
+    width: fit-content;
+    font-size: 1rem;
+    border: none;
+    color: #FFFFFF;
+    padding: 1.1rem 2.6rem;
+    font-family: "Montserrat Alternates", serif;
+
+    &--inf {
+        font-size: 1.2rem;
+        font-weight: 400;
+        background-color: rgba(115, 137, 169, 0.2);
+        
+        &::after {
+            content: 'р';
+            display: inline-block;
+            left: -20px;
+        }
+    }
+
+    &--tru {
+        font-weight: 500;
+        background-color: #7389A9;
+        transition: all .1s ease-in-out;
+        
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+    &--fls {
+        font-weight: 500;
+        background-color: #313131;
+    }
+
+    &--snd {
+        font-weight: 500;
+        background-color: #59554C;
+    }
 }
