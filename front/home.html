@@ -137,5 +137,30 @@
     </div>
 </footer>
 
+<div id="products-container">
+<script>
+    fetch('http://localhost:3000/products') // Запрос к бэкенду
+      .then(response => response.json())
+      .then(products => {
+        const container = document.getElementById('products-container');
+
+        products.forEach(product => {
+          const productDiv = document.createElement('div');
+          productDiv.innerHTML = `
+            <h2>${product.name}</h2> 
+            <p>Цена: ${product.price}</p>
+            <p>Описание: ${product.description}</p>
+            <br>
+          `;
+          container.appendChild(productDiv);
+        });
+      })
+      .catch(error => {
+        console.error("Ошибка при загрузке товаров:", error);
+        // Обработка ошибок, например, вывод сообщения об ошибке на странице
+      });
+  </script>
+</div>
+
 </body>
 </html>
