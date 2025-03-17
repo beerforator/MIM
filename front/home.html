@@ -37,90 +37,7 @@
 <main>
     <div class="catalog">
         <div class="container">
-            <div class="catalog__inner">
-                <a href="good.html" class="good_card">
-                    <div class="card_img">
-                        <img src="images/good-image 2.jpg" alt="">
-                    </div>
-                    <div class="card_info">
-                        <p class="card_discription">
-                            Поднос деревянный - разделочная доска
-                        </p>
-                        <h2 class="good_cost">
-                            800
-                        </h2>
-                    </div>
-                </a>
-
-                <a href="good.html" class="good_card">
-                    <div class="card_img">
-                        <img src="images/good-image 3.jpg" alt="">
-                    </div>
-                    <div class="card_info">
-                        <p class="card_discription">
-                            Менажница из 4 секций
-                        </p>
-                        <h2 class="good_cost">
-                            1600
-                        </h2>
-                    </div>
-                </a>
-
-                <a href="good.html" class="good_card">
-                    <div class="card_img">
-                        <img src="images/good-image.jpg" alt="">
-                    </div>
-                    <div class="card_info">
-                        <p class="card_discription">
-                            Менажница из 4 секций на ножках 
-                        </p>
-                        <h2 class="good_cost">
-                            1300
-                        </h2>
-                    </div>
-                </a>
-
-                <a href="good.html" class="good_card">
-                    <div class="card_img">
-                        <img src="images/good-image 4.jpg" alt="">
-                    </div>
-                    <div class="card_info">
-                        <p class="card_discription">
-                            Доска сервировочная - разделочная Олень 
-                        </p>
-                        <h2 class="good_cost">
-                            2100
-                        </h2>
-                    </div>
-                </a>
-
-                <a href="good.html" class="good_card">
-                    <div class="card_img">
-                        <img src="images/good-image 2.jpg" alt="">
-                    </div>
-                    <div class="card_info">
-                        <p class="card_discription">
-                            Поднос деревянный - разделочная доска
-                        </p>
-                        <h2 class="good_cost">
-                            800
-                        </h2>
-                    </div>
-                </a>
-
-                <a href="good.html" class="good_card">
-                    <div class="card_img">
-                        <img src="images/good-image 5.jpg" alt="">
-                    </div>
-                    <div class="card_info">
-                        <p class="card_discription">
-                            Разделочная доска  
-                        </p>
-                        <h2 class="good_cost">
-                            1000
-                        </h2>
-                    </div>
-                </a>
+            <div class="catalog__inner" id="catalog__inner">
 
             </div>
         </div>
@@ -137,30 +54,40 @@
     </div>
 </footer>
 
-<div id="products-container">
 <script>
     fetch('http://localhost:3000/products') // Запрос к бэкенду
-      .then(response => response.json())
-      .then(products => {
-        const container = document.getElementById('products-container');
+        .then(response => response.json())
+        .then(products => {
+            const container = document.getElementById('catalog__inner')
 
-        products.forEach(product => {
-          const productDiv = document.createElement('div');
-          productDiv.innerHTML = `
-            <h2>${product.name}</h2> 
-            <p>Цена: ${product.price}</p>
-            <p>Описание: ${product.description}</p>
-            <br>
-          `;
-          container.appendChild(productDiv);
-        });
-      })
-      .catch(error => {
-        console.error("Ошибка при загрузке товаров:", error);
-        // Обработка ошибок, например, вывод сообщения об ошибке на странице
-      });
-  </script>
-</div>
+            products.forEach(product => {
+                const productDiv = document.createElement('a')
+                productDiv.className = 'good_card'
+                productDiv.href = `good.html?id=${product.id}`
+                productDiv.innerHTML = `
+                    <div class="card_img">
+                        <img src="${product.image_path && product.image_path.length > 0 ? product.image_path : 'images/good-image.jpg'}" alt="${product.name}">
+                    </div>
+                    <div class="card_info">
+                        <p class="card_discription">
+                            ${product.name} 
+                        </p>
+                        <h2 class="good_cost">
+                            ${product.price}
+                        </h2>
+                    </div>
+                    <div class="spec">
+                        ${product.id}
+                    </div>
+                `
+                container.appendChild(productDiv)
+            })
+        })
+        .catch(error => {
+            console.error("Ошибка при загрузке товаров:", error);
+            // Обработка ошибок, например, вывод сообщения об ошибке на странице
+        })
+</script>
 
 </body>
 </html>

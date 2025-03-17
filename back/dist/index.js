@@ -14,8 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
+const path = require('path');
 const port = process.env.PORT || 3000;
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*"); //  Разрешить запросы с любого origin (для разработки)
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -28,7 +29,6 @@ const pool = new pg_1.Pool({
     //   rejectUnauthorized: false //  Важно для Heroku Postgres
     // } 
 });
-app.use(express_1.default.static('public')); // Для обслуживания статических файлов (HTML, CSS, JS)
 // ############################ Section of API ###############################
 app.get('/', (req, res) => {
     res.sendStatus(201);
@@ -37,6 +37,8 @@ app.get('/products', (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const db = yield pool.query('SELECT * FROM products');
         res.json(db.rows);
+        // const filePath = path.join(__dirname, '../../front/home.html') //  __dirname - текущая директория
+        // res.sendFile(filePath)
     }
     catch (err) {
         console.error("Ошибка при получении товаров:", err);
@@ -59,6 +61,9 @@ app.get('/products/:id', (req, res) => __awaiter(void 0, void 0, void 0, functio
     }
 }));
 // ######################### End of API Section ############################
+const publicDirectoryPath = path.join(__dirname, '../../front');
+app.use(express_1.default.static(publicDirectoryPath));
+// app.use(express.static('public')) // Для обслуживания статических файлов (HTML, CSS, JS)
 app.listen(port, () => {
     console.log(`Сервер запущен на порту ${port}`);
 });

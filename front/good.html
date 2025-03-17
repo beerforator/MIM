@@ -35,26 +35,8 @@
 
 <main>
     <div class="good">
-        <div class="container">
-            <div class="good__inner">
-                <div class="good_gallery">
-                    <img src="" alt="">
-                </div>
-
-                <div class="good_info">
-                    <div class="good_description">
-                        <h2>Название товар, кол-во секций и остальное</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            <br><br>Материал: 
-                            <br>Размеры: </p>     
-                    </div>
-                    <div class="good_coop">
-                        <button class="button button--inf">800</button>
-                        <button class="button button--tru">Купить</button>
-                    </div>
-                    <button class="button button--fls">Нет в наличии</button>
-                </div>
-            </div>
+        <div class="container" id="good__cont">
+            
         </div>
     </div>
 </main>
@@ -68,6 +50,72 @@
         </div>
     </div>
 </footer>
+
+<script>
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // Получаем ID товара из URL
+    const productId = getParameterByName('id');
+
+    fetch(`http://localhost:3000/products/${productId}`) // Запрос к бэкенду
+        .then(response => response.json())
+        .then(product => {
+            const container = document.getElementById('good__cont')
+            console.log(product)
+            
+            const productDiv = document.createElement('div')
+            productDiv.className = 'good__inner'
+            
+            productDiv.innerHTML = `
+                <div class="good_gallery">
+                    <img src="${product.image_path && product.image_path.length > 0 ? product.image_path : 'images/good-image.jpg'}" alt="${product.name}">
+                </div>    
+            `
+
+            if(product.stock == 0) {
+                productDiv.innerHTML += `
+                    <div class="good_info">
+                        <div class="good_description">
+                            <h2>${product.name}</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                <br><br>Материал: ${product.category}
+                                <br>Размеры: ${product.stock}</p>     
+                        </div>
+                        <button class="button button--fls" display: none;>Нет в наличии</button>
+                    </div>
+                `
+            } else {
+                productDiv.innerHTML += `
+                    <div class="good_info">
+                        <div class="good_description">
+                            <h2>${product.name}</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                <br><br>Материал: ${product.category}
+                                <br>Размеры: ${product.stock}</p>     
+                        </div>
+                        <div class="good_coop">
+                            <button class="button button--inf">800</button>
+                            <button class="button button--tru">Купить</button>
+                        </div>
+                    </div>
+                `
+            }
+
+            container.appendChild(productDiv)
+        })
+        .catch(error => {
+            console.error("Ошибка при загрузке товаров:", error);
+            // Обработка ошибок, например, вывод сообщения об ошибке на странице
+        })
+</script>
 
 </body>
 </html>
